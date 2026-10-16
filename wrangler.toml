@@ -1,0 +1,11 @@
+name = "follower-ai-pro"
+main = "worker.js"
+compatibility_date = "2025-01-01"
+
+[ai]
+binding = "AI"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "follower-ai-pro-db"
+database_id = "c9b5a22f-09ec-45c7-bd77-1c0bdcbdc659"
