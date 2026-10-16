@@ -1,7 +1,18 @@
+# Follower AI Pro: NEW, separate project. Does not touch fallowerai / follower-ai / follower-ai-web / seza / closer-ai.
 name = "follower-ai-pro"
-main = "worker.js"
-compatibility_date = "2025-01-01"
+main = "src/index.js"
+compatibility_date = "2025-09-01"
+workers_dev = true
 
+[assets]
+directory = "./public"
+binding = "ASSETS"
+run_worker_first = ["/api/*", "/webhook"]
+
+[observability]
+enabled = true
+
+# Cloudflare Workers AI (no external API key). Optional: remove these 2 lines to run without AI.
 [ai]
 binding = "AI"
 
@@ -9,3 +20,17 @@ binding = "AI"
 binding = "DB"
 database_name = "follower-ai-pro-db"
 database_id = "c9b5a22f-09ec-45c7-bd77-1c0bdcbdc659"
+
+[triggers]
+# daily 02:30 UTC = 06:00 Tehran (syncs the "main" account and builds today's plan)
+crons = ["30 2 * * *"]
+
+[vars]
+IG_API_HOST = "graph.instagram.com"
+IG_API_VERSION = "v25.0"
+TIMEZONE_OFFSET_MIN = "210"
+RATE_LIMIT_PER_MIN = "20"
+# ALLOWED_ORIGINS = "https://your-frontend.example"   # CORS is CLOSED unless you list origins here
+
+# Secrets (never in this file): ADMIN_KEY, TOKEN_ENC_KEY (required)
+# Optional: META_APP_SECRET, META_VERIFY_TOKEN (webhook), KEYWORD_RULES, ANTHROPIC_API_KEY, IG_ACCESS_TOKEN, IG_USER_ID
